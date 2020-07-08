@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour {
    private void Start() {
         // 초기화
         playerRigidbody = GetComponent<Rigidbody2D>();
-        animator = GetComponent<animator>();
+        animator = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
    }
 
@@ -26,13 +26,12 @@ public class PlayerController : MonoBehaviour {
         {
             return;
         }
-
        if (Input.GetMouseButtonDown(0) && jumpCount < 2)
         {
             jumpCount++;
             playerRigidbody.velocity = Vector2.zero;
-            platerRigidbody.AddForce(new Vector2(0, jumpForce));
-            playerAudio.play();
+            playerRigidbody.AddForce(new Vector2(0, jumpForce));
+            playerAudio.Play();
         }
        else if (Input.GetMouseButtonUp(0) && playerRigidbody.velocity.y > 0)
         {
@@ -43,16 +42,16 @@ public class PlayerController : MonoBehaviour {
 
    private void Die() {
         // 사망 처리
-        animator.SetTrigger('Die');
+        animator.SetTrigger("Die");
         playerAudio.clip = deathClip;
-        playerAudio.play();
+        playerAudio.Play();
         playerRigidbody.velocity = Vector2.zero;
         isDead = true;
    }
 
    private void OnTriggerEnter2D(Collider2D other) {
-       // 트리거 콜라이더를 가진 장애물과의 충돌을 감지
-       if (other.tag == "dead" && !isDead)
+        // 트리거 콜라이더를 가진 장애물과의 충돌을 감지
+        if (other.tag == "Dead" && !isDead)
         {
             Die();
         }
